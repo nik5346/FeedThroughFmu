@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fmiModelDescription fmiVersion="2.0" modelName="FeedthroughFmu" guid="{32df4b18-8387-42b7-b1d8-10613888449d}">
+	<ModelExchange modelIdentifier="FeedthroughFmu"/>
+	<CoSimulation modelIdentifier="FeedthroughFmu"/>
+	<DefaultExperiment startTime="0" stopTime="10"/>
+	<ModelVariables>
+		<!--Index=1-->
+		<ScalarVariable name="Real_input" valueReference="0" causality="input">
+			<Real start="0"/>
+		</ScalarVariable>
+		<!--Index=2-->
+		<ScalarVariable name="Real_output" valueReference="1" causality="output">
+			<Real/>
+		</ScalarVariable>
+		<!--Index=3-->
+		<ScalarVariable name="Integer_input" valueReference="2" causality="input">
+			<Integer start="0"/>
+		</ScalarVariable>
+		<!--Index=4-->
+		<ScalarVariable name="Integer_output" valueReference="3" causality="output">
+			<Integer/>
+		</ScalarVariable>
+		<!--Index=5-->
+		<ScalarVariable name="Boolean_input" valueReference="4" causality="input">
+			<Boolean start="false"/>
+		</ScalarVariable>
+		<!--Index=6-->
+		<ScalarVariable name="Boolean_output" valueReference="5" causality="output">
+			<Boolean/>
+		</ScalarVariable>
+	</ModelVariables>
+	<ModelStructure>
+		<Outputs>
+			<Unknown index="1"/>
+			<Unknown index="3"/>
+			<Unknown index="5"/>
+		</Outputs>
+		<InitialUnknowns>
+			<Unknown index="1"/>
+			<Unknown index="3"/>
+			<Unknown index="5"/>
+		</InitialUnknowns>
+	</ModelStructure>
+</fmiModelDescription>

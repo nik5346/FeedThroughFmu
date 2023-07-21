@@ -12,6 +12,8 @@ fmi2Boolean boolean_output{ fmi2False };    // vr 5
 
 fmi2Real simTime{ 0.0 };
 
+fmi2EventInfo eventInfo{ fmi2False,fmi2False,fmi2False,fmi2False,fmi2True,0.1 };
+
 
 const char* fmi2GetTypesPlatform(void)
 {
@@ -282,9 +284,15 @@ fmi2Status fmi2NewDiscreteStates(fmi2Component c, fmi2EventInfo* fmi2eventInfo)
 {
     log("Called fmi2NewDiscreteStates");
 
+    eventInfo.nextEventTime = simTime + 0.1;
+    eventInfo.nextEventTimeDefined = fmi2True;
+
     fmi2eventInfo->newDiscreteStatesNeeded = fmi2False;
     fmi2eventInfo->nextEventTime = simTime + 0.1;
     fmi2eventInfo->nextEventTimeDefined = fmi2True;
+
+    std::string temp = "nextEventTime:" + std::to_string(simTime + 0.1);
+    log(temp.c_str());
 
     return fmi2Status::fmi2OK;
 }
@@ -307,7 +315,8 @@ fmi2Status fmi2CompletedIntegratorStep(fmi2Component c,
     integer_output  = integer_input;
     boolean_output  = boolean_input;
 
-    *enterEventMode = fmi2True;
+    if (eventInfo.nextEventTimeDefined && simTime >= eventInfo.nextEventTime)
+        *enterEventMode = fmi2True;
 
     return fmi2Status::fmi2OK;
 }
@@ -317,6 +326,8 @@ fmi2Status fmi2SetTime(fmi2Component c, fmi2Real time)
     log("Called fmi2SetTime");
 
     simTime = time;
+    std::string temp = "simtime:" + std::to_string(simTime);
+    log(temp.c_str());
 
     return fmi2Status::fmi2OK;
 }
@@ -386,6 +397,10 @@ fmi2Status fmi2DoStep(fmi2Component c,
     fmi2Boolean   noSetFMUStatePriorToCurrentPoint)
 {
     log("Called fmi2DoStep");
+
+    real_output = real_input;
+    integer_output = integer_input;
+    boolean_output = boolean_input;
 
     return fmi2Status::fmi2OK;
 }
